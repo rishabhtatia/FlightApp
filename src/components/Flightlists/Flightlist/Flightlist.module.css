@@ -1,0 +1,9 @@
+.flightList {
+  margin: 5px;
+}
+.border {
+  border: 1px solid black;
+}
+.price {
+  color: red;
+}

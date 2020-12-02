@@ -1,0 +1,32 @@
+.multipleFlights {
+    margin: 5px;
+    border: 1px solid black;
+  }
+.expandFlagButton {
+    color: blue;
+    text-decoration: underline;
+    border: none;
+    background: white;
+}
+.totalDuration {
+    color:green;
+}
+.price {
+    color: red;
+} 
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-top: 3px dashed #bbb;
+}
+.separator::before {
+    margin-right: 5px;
+}
+.separator::after {
+    margin-left: 5px;
+}

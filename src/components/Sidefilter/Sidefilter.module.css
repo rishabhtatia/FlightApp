@@ -1,0 +1,15 @@
+.buttonGroup {
+    align-items: right;
+    margin: 5px;
+}
+.button {
+    margin: 5px;
+    padding: 5px 10px;    
+}
+.sideFilter {
+    border: 1px solid black;
+    margin: 0 5px;
+    width: 100%;
+    height: 100%;
+
+}   
