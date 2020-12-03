@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import Flightlist from './Flightlist/Flighlist';
 import MultipleFlights from './Multipleflights/Multipleflights';
 import styles from './Flightlists.module.css';
@@ -20,6 +21,14 @@ const FlightLists = ({ data }) => {
       )}
     </div>
   );
+};
+
+FlightLists.defaultpropTypes = {
+  data: [],
+};
+
+FlightLists.protoTypes = {
+  data: PropTypes.any,
 };
 
 export default FlightLists;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styles from './Multipleflights.module.css';
 import Flightlist from '../Flightlist/Flighlist';
@@ -89,6 +90,10 @@ const MultipleFlights = ({ data }) => {
       </div>
     </div>
   );
+};
+
+MultipleFlights.protoTypes = {
+  data: PropTypes.any,
 };
 
 export default MultipleFlights;

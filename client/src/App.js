@@ -11,15 +11,12 @@ const App = () => {
   const [returnData, setReturnData] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [isError, setIserror] = useState(false);
+  const [isErrorMessage, setIserrorMessage] = useState('');
   const [showReturnData, setshowReturnData] = useState(false);
   const [places, setPlaces] = useState([]);
-  const [originCityInput, setOriginCity] = useState('');
-  const [destinationcityInput, setDestinationCity] = useState('');
 
   const onSearch = (event, formData) => {
     event.preventDefault();
-    setOriginCity(formData.originCity);
-    setDestinationCity(formData.destinationCity);
     onSearchCall(formData);
   };
 
@@ -31,10 +28,12 @@ const App = () => {
       });
       setFilteredData(response.data.flightOneWayData);
       if (showReturnData) {
-        setReturnData(response.data.returnFlighData);
+        setReturnData(response.data.returnFlightData);
       }
     } catch (err) {
-      console.liog('Error Occured');
+      console.log('Error Occured');
+      setIserror(true);
+      setIserrorMessage(err.message);
     }
   };
 
@@ -55,14 +54,15 @@ const App = () => {
         setPlaces(data);
         setIsloading(true);
       } catch (err) {
-        console.log('Eror:' + err);
+        console.log(err);
         setIsloading(true);
         setIserror(true);
+        setIserrorMessage(err.message);
       }
     })();
   }, []);
   return isError ? (
-    <h1>Error occured</h1>
+    <h1>Error:{isErrorMessage}</h1>
   ) : (
     <div className={styles.app}>
       <Layout>

@@ -111,7 +111,7 @@ router.post('/search', async (req, res) => {
         departureDate
       );
       if (returnDataFlag) {
-        returnFlighData = filterData(
+        returnFlightData = filterData(
           resp.data,
           destinationCity,
           originCity,
@@ -120,7 +120,7 @@ router.post('/search', async (req, res) => {
       }
       res.send({
         flightOneWayData: filteredFlightData,
-        returnFlighData: returnFlighData,
+        returnFlightData: returnFlightData,
       });
     } else throw new Error({ message: 'Something Went Wrong!!' });
   } catch (error) {

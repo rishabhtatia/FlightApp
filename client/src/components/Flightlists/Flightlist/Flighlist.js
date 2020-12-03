@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import styles from './Flightlist.module.css';
 import clsx from 'clsx';
 
@@ -51,6 +52,14 @@ const Flightlist = ({ data }) => {
       </div>
     </div>
   );
+};
+
+Flightlist.defaultpropTypes = {
+  data: [],
+};
+
+Flightlist.protoTypes = {
+  data: PropTypes.any,
 };
 
 export default Flightlist;

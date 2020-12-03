@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Sidefilter.module.css';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
 
@@ -117,6 +118,13 @@ const SideFilter = (props) => {
       </form>
     </div>
   );
+};
+
+SideFilter.protoTypes = {
+  dropdownList: PropTypes.array,
+  onSearch: PropTypes.func,
+  journeyType: PropTypes.func,
+  showReturnData: PropTypes.bool,
 };
 
 export default SideFilter;
