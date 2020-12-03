@@ -4,7 +4,7 @@ import _ from 'lodash';
 import clsx from 'clsx';
 import moment from 'moment';
 
-const SIDEFILTER = (props) => {
+const SideFilter = (props) => {
   const [formData, formDataHandler] = useState({
     originCity: '',
     destinationCity: '',
@@ -35,7 +35,7 @@ const SIDEFILTER = (props) => {
           className={clsx('btn', styles.button, {
             'btn-primary': !props.showReturnData,
           })}
-          onClick={() => props.journeyType(false, formData)}
+          onClick={() => props.journeyType(false)}
         >
           One Way
         </button>
@@ -43,7 +43,7 @@ const SIDEFILTER = (props) => {
           className={clsx('btn', styles.button, {
             'btn-primary': props.showReturnData,
           })}
-          onClick={() => props.journeyType(true, formData)}
+          onClick={() => props.journeyType(true)}
         >
           Return
         </button>
@@ -119,4 +119,4 @@ const SIDEFILTER = (props) => {
   );
 };
 
-export default SIDEFILTER;
+export default SideFilter;

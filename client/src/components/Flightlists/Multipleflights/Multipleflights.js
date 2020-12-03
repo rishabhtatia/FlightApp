@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import _ from 'lodash';
 import styles from './Multipleflights.module.css';
-import FLIGHTLIST from '../Flightlist/Flighlist';
+import Flightlist from '../Flightlist/Flighlist';
 
-const MULTIPLEFLIGHTS = ({ data }) => {
+const MultipleFlights = ({ data }) => {
   const [expandFlag, expandFlagHandler] = useState(false);
   const calculateTimeDifference = (date1, time1, date2, time2) => {
     let journeyTimestart = moment(`${date1} ${time1}`);
@@ -72,7 +72,7 @@ const MULTIPLEFLIGHTS = ({ data }) => {
           _.map(data, (item, index) => {
             return (
               <div>
-                <FLIGHTLIST
+                <Flightlist
                   data={item}
                   key={item.flightNo + index}
                   multiple={true}
@@ -91,4 +91,4 @@ const MULTIPLEFLIGHTS = ({ data }) => {
   );
 };
 
-export default MULTIPLEFLIGHTS;
+export default MultipleFlights;

@@ -3,7 +3,7 @@ import moment from 'moment';
 import styles from './Flightlist.module.css';
 import clsx from 'clsx';
 
-const FLIGHTLIST = ({ data }) => {
+const Flightlist = ({ data }) => {
   const journeyTimestart = moment(`${data.date} ${data.departureTime}`);
   const journeyTimeend = moment(`${data.date} ${data.arrivalTime}`);
   let totaljourneyTime = journeyTimeend.diff(
@@ -53,4 +53,4 @@ const FLIGHTLIST = ({ data }) => {
   );
 };
 
-export default FLIGHTLIST;
+export default Flightlist;
