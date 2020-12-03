@@ -1,18 +1,21 @@
 import React from 'react';
 import moment from 'moment';
 import styles from './Flightlist.module.css';
+import clsx from 'clsx';
 
 const FLIGHTLIST = (props) => {
   const data = props.data;
-  const journeyTimestart = moment(data.date + ' ' + data.departureTime);
-  const journeyTimeend = moment(data.date + ' ' + data.arrivalTime);  
+  const journeyTimestart = moment(`${data.date} ${data.departureTime}`);
+  const journeyTimeend = moment(`${data.date} ${data.arrivalTime}`);
   let totaljourneyTime = journeyTimeend.diff(
     journeyTimestart,
     'DD/MM/YYYY HH:mm:ss'
-  );  
-  totaljourneyTime = moment.duration(totaljourneyTime);    
+  );
+  totaljourneyTime = moment.duration(totaljourneyTime);
   return (
-    <div className={styles.flightList + " " + (!props.multiple ? styles.border: '')}>
+    <div
+      className={clsx(styles.flightList, styles.Blackborder && !props.multiple)}
+    >
       <div className="card">
         <div className="card-body">
           <div className="row">
@@ -29,12 +32,14 @@ const FLIGHTLIST = (props) => {
               <span>{data.destination}</span>
             </div>
             <div className="col-sm">
-              <h4>{totaljourneyTime._data.hours + 'h:' + totaljourneyTime._data.minutes + 'm'}</h4>
+              <h4>
+                {`${totaljourneyTime._data.hours}h:${totaljourneyTime._data.minutes}m`}
+              </h4>
               <span>Non Stop</span>
             </div>
             <div className="col-sm">
               {!props.multiple && (
-                <h4 className={styles.price}>
+                <h4 className={styles.redColor}>
                   {new Intl.NumberFormat('en-IN', {
                     style: 'currency',
                     currency: 'INR',

@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import _ from 'lodash';
 import styles from './Multipleflights.module.css';
 import FLIGHTLIST from '../Flightlist/Flighlist';
 
-const MULTIPLEFLIGHTS = (props) => {
-  const data = props.data;
-  const [expandFlag, expandFlagHandler] = useState(false);  
+const MULTIPLEFLIGHTS = ({ data }) => {
+  const [expandFlag, expandFlagHandler] = useState(false);
   const calculateTimeDifference = (date1, time1, date2, time2) => {
-    let journeyTimestart = moment(date1 + ' ' + time1);
-    let journeyTimeend = moment(date2 + ' ' + time2);
+    let journeyTimestart = moment(`${date1} ${time1}`);
+    let journeyTimeend = moment(`${date2} ${time2}`);
     let totaljourneyTime = journeyTimeend.diff(
       journeyTimestart,
       'DD/MM/YYYY HH:mm:ss'
-    );    
-    totaljourneyTime = moment.duration(totaljourneyTime);    
+    );
+    totaljourneyTime = moment.duration(totaljourneyTime);
     return totaljourneyTime;
   };
   let totaljourneyTime = calculateTimeDifference(
@@ -30,7 +30,6 @@ const MULTIPLEFLIGHTS = (props) => {
   );
   let price = data.reduce((sum, prev) => prev.price + sum, 0);
 
-  
   return (
     <div className={styles.multipleFlights}>
       <div className="card">
@@ -55,12 +54,12 @@ const MULTIPLEFLIGHTS = (props) => {
             </div>
             <div className="col-sm">
               <h4 className={styles.totalDuration}>
-                {totaljourneyTime._data.hours + 'h:' + totaljourneyTime._data.minutes + 'm'}
+                {`${totaljourneyTime._data.hours}h:${totaljourneyTime._data.minutes}m`}
               </h4>
               <span>Total Duration</span>
             </div>
             <div className="col-sm">
-              <h4 className={styles.price}>
+              <h4 className={styles.redColor}>
                 {new Intl.NumberFormat('en-IN', {
                   style: 'currency',
                   currency: 'INR',
@@ -70,12 +69,19 @@ const MULTIPLEFLIGHTS = (props) => {
           </div>
         </div>
         {expandFlag &&
-          data.map((item, index) => {
+          _.map(data, (item, index) => {
             return (
               <div>
-                <FLIGHTLIST data={item} key={item.flightNo + index} multiple={true} />
+                <FLIGHTLIST
+                  data={item}
+                  key={item.flightNo + index}
+                  multiple={true}
+                />
                 {!(index % 2) && (
-                  <div className={styles.separator}>Layover Time: {layoverTime._data.hours + 'h:' + layoverTime._data.minutes + 'm'}</div>
+                  <div className={styles.separator}>
+                    Layover Time:{' '}
+                    {`${layoverTime._data.hours}h:${layoverTime._data.minutes}m`}
+                  </div>
                 )}
               </div>
             );
