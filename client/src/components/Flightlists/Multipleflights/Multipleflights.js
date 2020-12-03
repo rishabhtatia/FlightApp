@@ -92,7 +92,7 @@ const MultipleFlights = ({ data }) => {
   );
 };
 
-MultipleFlights.protoTypes = {
+MultipleFlights.propTypes = {
   data: PropTypes.any,
 };
 

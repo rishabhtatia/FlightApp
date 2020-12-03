@@ -120,11 +120,11 @@ const SideFilter = (props) => {
   );
 };
 
-SideFilter.protoTypes = {
-  dropdownList: PropTypes.array,
-  onSearch: PropTypes.func,
-  journeyType: PropTypes.func,
-  showReturnData: PropTypes.bool,
+SideFilter.propTypes = {
+  dropdownList: PropTypes.array.isRequired,
+  onSearch: PropTypes.func.isRequired,
+  journeyType: PropTypes.func.isRequired,
+  showReturnData: PropTypes.bool.isRequired,
 };
 
 export default SideFilter;

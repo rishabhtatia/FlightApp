@@ -27,7 +27,7 @@ FlightLists.defaultpropTypes = {
   data: [],
 };
 
-FlightLists.protoTypes = {
+FlightLists.propTypes = {
   data: PropTypes.any,
 };
 

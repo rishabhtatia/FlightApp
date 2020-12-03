@@ -1,8 +1,9 @@
-import React from "react";
-import AUX from "../../hoc/Auxillary";
-import styles from "./Layout.module.css";
+import React from 'react';
+import AUX from '../../hoc/Auxillary';
+import PropTypes from 'prop-types';
+import styles from './Layout.module.css';
 
-const LAYOUT = (props) => {
+const Layout = (props) => {
   return (
     <AUX>
       <h1 className={styles.heading}>FLIGHT SEARCH APP</h1>
@@ -11,4 +12,8 @@ const LAYOUT = (props) => {
   );
 };
 
-export default LAYOUT;
+Layout.propTypes = {
+  children: PropTypes.any,
+};
+
+export default Layout;
