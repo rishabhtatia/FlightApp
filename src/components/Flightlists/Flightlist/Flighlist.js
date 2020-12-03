@@ -3,8 +3,7 @@ import moment from 'moment';
 import styles from './Flightlist.module.css';
 import clsx from 'clsx';
 
-const FLIGHTLIST = (props) => {
-  const data = props.data;
+const FLIGHTLIST = ({ data }) => {
   const journeyTimestart = moment(`${data.date} ${data.departureTime}`);
   const journeyTimeend = moment(`${data.date} ${data.arrivalTime}`);
   let totaljourneyTime = journeyTimeend.diff(
@@ -14,7 +13,7 @@ const FLIGHTLIST = (props) => {
   totaljourneyTime = moment.duration(totaljourneyTime);
   return (
     <div
-      className={clsx(styles.flightList, styles.Blackborder && !props.multiple)}
+      className={clsx(styles.flightList, styles.Blackborder && !data.multiple)}
     >
       <div className="card">
         <div className="card-body">
@@ -38,7 +37,7 @@ const FLIGHTLIST = (props) => {
               <span>Non Stop</span>
             </div>
             <div className="col-sm">
-              {!props.multiple && (
+              {!data.multiple && (
                 <h4 className={styles.redColor}>
                   {new Intl.NumberFormat('en-IN', {
                     style: 'currency',
