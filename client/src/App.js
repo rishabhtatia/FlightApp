@@ -10,7 +10,7 @@ import axios from 'axios';
 const App = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [returnData, setReturnData] = useState([]);
-  const [isLoading, setIsloading] = useState(false);
+  const [isLoading, setIsloading] = useState(true);
   const [isError, setIserror] = useState(false);
   const [isErrorMessage, setIserrorMessage] = useState('');
   const [showReturnData, setshowReturnData] = useState(false);
@@ -54,9 +54,9 @@ const App = () => {
         const response = await axios.get(`${API.serverapi}/dropdown`);
         const data = response.data;
         setPlaces(data);
-        setIsloading(true);
+        setIsloading(false);
       } catch (err) {
-        setIsloading(true);
+        setIsloading(false);
         setIserror(true);
         setIserrorMessage(err.message);
       }
@@ -68,6 +68,10 @@ const App = () => {
     <div className={styles.app}>
       <Layout>
         {isLoading ? (
+          <div className="spinner-border text-primary">
+            <span className="sr-only">Loading...</span>
+          </div>
+        ) : (
           <div className="row" style={{ margin: 0 }}>
             <div className={clsx('col-md-2', styles.noPadding)}>
               <Sidefilter
@@ -90,10 +94,6 @@ const App = () => {
                 <FlightLists data={returnData}></FlightLists>
               </div>
             )}
-          </div>
-        ) : (
-          <div className="spinner-border text-primary">
-            <span className="sr-only">Loading...</span>
           </div>
         )}
       </Layout>
