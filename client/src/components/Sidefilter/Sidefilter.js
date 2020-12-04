@@ -22,7 +22,8 @@ const SideFilter = (props) => {
   const isDisabled = () => {
     return (
       !moment(formData.departureDate, 'YYYY-MM-DD').isValid() ||
-      !moment(formData.returnDate, 'YYYY-MM-DD').isValid() ||
+      (!props.showReturnData &&
+        moment(formData.returnDate, 'YYYY-MM-DD').isValid()) ||
       !formData?.originCity?.length > 0 ||
       !formData?.destinationCity?.length > 0 ||
       formData.originCity === formData.destinationCity
@@ -99,15 +100,17 @@ const SideFilter = (props) => {
             onChange={handleInput}
           ></input>
         </div>
-        <div className="form-group">
-          <input
-            type="date"
-            className={styles.inputGroup}
-            name="returnDate"
-            value={formData.returnDate}
-            onChange={handleInput}
-          ></input>
-        </div>
+        {props.showReturnData && (
+          <div className="form-group">
+            <input
+              type="date"
+              className={styles.inputGroup}
+              name="returnDate"
+              value={formData.returnDate}
+              onChange={handleInput}
+            ></input>
+          </div>
+        )}
         <button
           type="submit"
           className="btn btn-primary"
