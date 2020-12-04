@@ -22,8 +22,8 @@ const SideFilter = (props) => {
   const isDisabled = () => {
     return (
       !moment(formData.departureDate, 'YYYY-MM-DD').isValid() ||
-      (!props.showReturnData &&
-        moment(formData.returnDate, 'YYYY-MM-DD').isValid()) ||
+      (props.showReturnData &&
+        !moment(formData.returnDate, 'YYYY-MM-DD').isValid()) ||
       !formData?.originCity?.length > 0 ||
       !formData?.destinationCity?.length > 0 ||
       formData.originCity === formData.destinationCity
