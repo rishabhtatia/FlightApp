@@ -127,8 +127,8 @@ SideFilter.defaultpropTypes = {
 
 SideFilter.propTypes = {
   dropdownList: PropTypes.array,
-  onSearch: PropTypes.func.isRequired,
-  journeyType: PropTypes.func.isRequired,
+  onSearch: PropTypes.func,
+  journeyType: PropTypes.func,
   showReturnData: PropTypes.bool,
 };
 

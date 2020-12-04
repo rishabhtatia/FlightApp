@@ -11,10 +11,12 @@ const FlightLists = ({ data }) => {
       <h1>FLIGHT LISTS</h1>
       {_.map(data, (item) =>
         Array.isArray(item) ? (
-          <MultipleFlights
-            flightListing={item}
-            key={item[0].flightNo + item[item.length - 1].flightNo}
-          />
+          item.length > 0 ? (
+            <MultipleFlights
+              flightListing={item}
+              key={item[0].flightNo + item[item.length - 1].flightNo}
+            />
+          ) : null
         ) : (
           <Flightlist data={item} key={item.flightNo} />
         )

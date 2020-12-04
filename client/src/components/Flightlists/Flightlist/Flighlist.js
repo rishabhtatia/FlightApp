@@ -55,7 +55,7 @@ const Flightlist = ({ data }) => {
 };
 
 Flightlist.defaultpropTypes = {
-  data: [],
+  data: {},
 };
 
 Flightlist.propTypes = {
