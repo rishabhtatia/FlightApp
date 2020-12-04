@@ -12,7 +12,7 @@ const FlightLists = ({ data }) => {
       {_.map(data, (item) =>
         Array.isArray(item) ? (
           <MultipleFlights
-            data={item}
+            flightListing={item}
             key={item[0].flightNo + item[item.length - 1].flightNo}
           />
         ) : (

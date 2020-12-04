@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import moment from 'moment';
 
 const SideFilter = (props) => {
-  const [formData, formDataHandler] = useState({
+  const [formData, setFormData] = useState({
     originCity: '',
     destinationCity: '',
     departureDate: '',
@@ -14,7 +14,7 @@ const SideFilter = (props) => {
   });
 
   const handleInput = (event) => {
-    formDataHandler((prevState) => {
+    setFormData((prevState) => {
       return { ...prevState, [event.target.name]: event.target.value };
     });
   };
@@ -23,8 +23,8 @@ const SideFilter = (props) => {
     return (
       !moment(formData.departureDate, 'YYYY-MM-DD').isValid() ||
       !moment(formData.returnDate, 'YYYY-MM-DD').isValid() ||
-      !formData.originCity.length > 0 ||
-      !formData.destinationCity.length > 0 ||
+      !formData?.originCity?.length > 0 ||
+      !formData?.destinationCity?.length > 0 ||
       formData.originCity === formData.destinationCity
     );
   };
@@ -120,11 +120,16 @@ const SideFilter = (props) => {
   );
 };
 
+SideFilter.defaultpropTypes = {
+  dropdownList: [],
+  showReturnData: false,
+};
+
 SideFilter.propTypes = {
-  dropdownList: PropTypes.array.isRequired,
+  dropdownList: PropTypes.array,
   onSearch: PropTypes.func.isRequired,
   journeyType: PropTypes.func.isRequired,
-  showReturnData: PropTypes.bool.isRequired,
+  showReturnData: PropTypes.bool,
 };
 
 export default SideFilter;

@@ -1,35 +1,35 @@
-var express = require('express');
+const express = require('express');
 const axios = require('axios');
 const _ = require('lodash');
-var moment = require('moment');
-var router = express.Router();
+const moment = require('moment');
+const router = express.Router();
 
 const filterData = (flightData, originCity, destinationCity, date1) => {
-  let date = moment(date1).isValid() ? moment(date1).format('YYYY/MM/DD') : '';
+  let MultiFlights = [];
+  let originflightsArray = [];
+  let destinationflightsArray = [];
+  const date = moment(date1).isValid()
+    ? moment(date1).format('YYYY/MM/DD')
+    : '';
   const directFlightData = flightData.filter(
     (item) =>
       item.origin === originCity &&
       item.destination === destinationCity &&
       (date ? item.date == date : true)
   );
-  let indirectFlighData = flightData.filter((item) => {
+  const indirectFlighData = flightData.filter((item) => {
     if (item.origin === originCity && item.destination === destinationCity) {
       return false;
     } else {
       return date ? item.date == date : item;
     }
   });
-  let originFlighData = [];
-  let destinationFlighData = [];
-  originFlighData = indirectFlighData.filter(
+  let originFlighData = indirectFlighData.filter(
     (item) => item.origin === originCity
   );
-  destinationFlighData = indirectFlighData.filter(
+  let destinationFlighData = indirectFlighData.filter(
     (item) => item.destination === destinationCity
   );
-  let newArr = [];
-  let originflightsArray = [];
-  let destinationflightsArray = [];
   originFlighData.sort((e, f) =>
     moment.duration(moment(`${e.date} ${e.arrivalTime}`)) >
     moment.duration(moment(`${f.date} ${f.arrivalTime}`))
@@ -64,15 +64,14 @@ const filterData = (flightData, originCity, destinationCity, date1) => {
           !originflightsArray.includes(originFlighData[i].flightNo) &&
           !destinationflightsArray.includes(destinationFlighData[j].flightNo)
         ) {
-          newArr.push([originFlighData[i], destinationFlighData[j]]);
+          MultiFlights.push([originFlighData[i], destinationFlighData[j]]);
           originflightsArray.push(originFlighData[i].flightNo);
           destinationflightsArray.push(destinationFlighData[j].flightNo);
         }
       }
     }
   }
-  let filteredFlightData = [...directFlightData, ...newArr];
-  return filteredFlightData;
+  return [...directFlightData, ...MultiFlights];
 };
 /* GET users listing. */
 router.get('/flightdata', async (req, res) => {
@@ -84,14 +83,13 @@ router.get('/flightdata', async (req, res) => {
       res.send(resp.data);
     } else throw new Error({ message: 'Something Went Wrong!!' });
   } catch (error) {
-    console.error(error);
     _.nodeErrHandler(res, err);
   }
 });
 
 router.post('/search', async (req, res) => {
   try {
-    let params = req.body;
+    const params = req.body;
     const {
       originCity,
       destinationCity,
@@ -124,7 +122,6 @@ router.post('/search', async (req, res) => {
       });
     } else throw new Error({ message: 'Something Went Wrong!!' });
   } catch (error) {
-    console.error(error);
     _.nodeErrHandler(res, err);
   }
 });
@@ -135,16 +132,13 @@ router.get('/dropdown', async (req, res) => {
       'https://tw-frontenders.firebaseio.com/advFlightSearch.json'
     );
     if (resp.data) {
-      let data = [];
-      let unique = [];
-      unique = [...new Set(resp.data.map((item) => item.origin))];
-      data = unique.map((item) => {
+      let unique = [...new Set(resp.data.map((item) => item.origin))];
+      let data = unique.map((item) => {
         return { label: item, value: item };
       });
       res.send(data);
     } else throw new Error({ message: 'Something Went Wrong!!' });
   } catch (error) {
-    console.error(error);
     _.nodeErrHandler(res, err);
   }
 });

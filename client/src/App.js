@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
 import API from './constant/api';
+import clsx from 'clsx';
 import FlightLists from './components/Flightlists/Flightlists';
 import Layout from './components/Layout/Layout';
 import Sidefilter from './components/Sidefilter/Sidefilter';
@@ -26,12 +27,13 @@ const App = () => {
         returnDataFlag: showReturnData,
         formData,
       });
-      setFilteredData(response.data.flightOneWayData);
+      if (response?.data?.flightOneWayData) {
+        setFilteredData(response?.data?.flightOneWayData);
+      }
       if (showReturnData) {
-        setReturnData(response.data.returnFlightData);
+        setReturnData(response?.data?.returnFlightData);
       }
     } catch (err) {
-      console.log('Error Occured');
       setIserror(true);
       setIserrorMessage(err.message);
     }
@@ -54,7 +56,6 @@ const App = () => {
         setPlaces(data);
         setIsloading(true);
       } catch (err) {
-        console.log(err);
         setIsloading(true);
         setIserror(true);
         setIserrorMessage(err.message);
@@ -68,7 +69,7 @@ const App = () => {
       <Layout>
         {isLoading ? (
           <div className="row" style={{ margin: 0 }}>
-            <div className={'col-md-2' + styles.noPadding}>
+            <div className={clsx('col-md-2', styles.noPadding)}>
               <Sidefilter
                 dropdownList={places}
                 onSearch={onSearch}
@@ -77,20 +78,21 @@ const App = () => {
               ></Sidefilter>
             </div>
             <div
-              className={
-                showReturnData ? 'col-md-5 ' : 'col-md-10 ' + styles.noPadding
-              }
+              className={clsx(
+                showReturnData ? 'col-md-5' : 'col-md-10',
+                styles.noPadding
+              )}
             >
               <FlightLists data={filteredData}></FlightLists>
             </div>
             {showReturnData && (
-              <div className={'col-md-5 ' + styles.noPadding}>
+              <div className={clsx('col-md-5 ', styles.noPadding)}>
                 <FlightLists data={returnData}></FlightLists>
               </div>
             )}
           </div>
         ) : (
-          <div className="spinner-border text-primary" role="status">
+          <div className="spinner-border text-primary">
             <span className="sr-only">Loading...</span>
           </div>
         )}
