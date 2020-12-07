@@ -4,13 +4,15 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
+import RangeSlider from '../common/RangeSlider/RangeSlider';
 
 const SideFilter = (props) => {
   const [formData, setFormData] = useState({
-    originCity: '',
-    destinationCity: '',
-    departureDate: '',
+    originCity: 'Pune (PNQ)',
+    destinationCity: 'Delhi (DEL)',
+    departureDate: '2020-11-01',
     returnDate: '',
+    passengers: '',
   });
 
   const handleInput = (event) => {
@@ -26,7 +28,8 @@ const SideFilter = (props) => {
         !moment(formData.returnDate, 'YYYY-MM-DD').isValid()) ||
       !formData?.originCity?.length > 0 ||
       !formData?.destinationCity?.length > 0 ||
-      formData.originCity === formData.destinationCity
+      formData.originCity === formData.destinationCity ||
+      !formData.passengers
     );
   };
 
@@ -111,6 +114,16 @@ const SideFilter = (props) => {
             ></input>
           </div>
         )}
+        <div className="form-group">
+          <input
+            type="number"
+            className={styles.inputGroup}
+            name="passengers"
+            placeholder="Passengers"
+            value={formData.passengers}
+            onChange={handleInput}
+          ></input>
+        </div>
         <button
           type="submit"
           className="btn btn-primary"
@@ -119,6 +132,14 @@ const SideFilter = (props) => {
           Search
         </button>
       </form>
+      <div>
+        <RangeSlider
+          onChangeSlider={props.onChangeSlider}
+          label="Refine Fligh Search"
+          min={0}
+          max={20000}
+        />
+      </div>
     </div>
   );
 };
@@ -132,6 +153,7 @@ SideFilter.propTypes = {
   dropdownList: PropTypes.array,
   onSearch: PropTypes.func,
   journeyType: PropTypes.func,
+  onChangeSlider: PropTypes.func,
   showReturnData: PropTypes.bool,
 };
 

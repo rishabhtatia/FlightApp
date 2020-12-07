@@ -15,10 +15,14 @@ const App = () => {
   const [isErrorMessage, setIserrorMessage] = useState('');
   const [showReturnData, setshowReturnData] = useState(false);
   const [places, setPlaces] = useState([]);
-
+  const [priceLimit, setpriceLimit] = useState(0);
   const onSearch = (event, formData) => {
     event.preventDefault();
     onSearchCall(formData);
+  };
+
+  const onChangeSlider = (price) => {
+    setpriceLimit(parseInt(price));
   };
 
   const onSearchCall = async (formData) => {
@@ -51,7 +55,7 @@ const App = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(`${API.serverapi}/dropdown`);
+        const response = await axios.get(`api/dropdown`);
         const data = response.data;
         setPlaces(data);
         setIsloading(false);
@@ -79,7 +83,11 @@ const App = () => {
                 onSearch={onSearch}
                 journeyType={journeyType}
                 showReturnData={showReturnData}
+                onChangeSlider={onChangeSlider}
               ></Sidefilter>
+              {/* <div className="form-group">
+                <RangeSlider onChange={onChangeSlider} />
+              </div> */}
             </div>
             <div
               className={clsx(
@@ -87,11 +95,17 @@ const App = () => {
                 styles.noPadding
               )}
             >
-              <FlightLists data={filteredData}></FlightLists>
+              <FlightLists
+                data={filteredData}
+                priceLimit={priceLimit}
+              ></FlightLists>
             </div>
             {showReturnData && (
               <div className={clsx('col-md-5 ', styles.noPadding)}>
-                <FlightLists data={returnData}></FlightLists>
+                <FlightLists
+                  data={returnData}
+                  priceLimit={priceLimit}
+                ></FlightLists>
               </div>
             )}
           </div>

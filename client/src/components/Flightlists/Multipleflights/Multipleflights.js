@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styles from './Multipleflights.module.css';
@@ -7,29 +6,7 @@ import Flightlist from '../Flightlist/Flighlist';
 
 const MultipleFlights = ({ flightListing }) => {
   const [expandFlag, setExpandFlag] = useState(false);
-  const calculateTimeDifference = (date1, time1, date2, time2) => {
-    const journeyTimestart = moment(`${date1} ${time1}`);
-    const journeyTimeend = moment(`${date2} ${time2}`);
-    let totaljourneyTime = journeyTimeend.diff(
-      journeyTimestart,
-      'DD/MM/YYYY HH:mm:ss'
-    );
-    totaljourneyTime = moment.duration(totaljourneyTime);
-    return totaljourneyTime;
-  };
-  let totaljourneyTime = calculateTimeDifference(
-    flightListing[0].date,
-    flightListing[0].departureTime,
-    flightListing[flightListing.length - 1].date,
-    flightListing[flightListing.length - 1].arrivalTime
-  );
-  let layoverTime = calculateTimeDifference(
-    flightListing[0].date,
-    flightListing[0].arrivalTime,
-    flightListing[flightListing.length - 1].date,
-    flightListing[flightListing.length - 1].departureTime
-  );
-  let price = flightListing.reduce((sum, prev) => prev.price + sum, 0);
+  const price = flightListing.reduce((sum, prev) => prev.price + sum, 0);
 
   return (
     <div className={styles.multipleFlights}>
@@ -55,7 +32,7 @@ const MultipleFlights = ({ flightListing }) => {
             </div>
             <div className="col-sm">
               <h4 className={styles.totalDuration}>
-                {`${totaljourneyTime._data.hours}h:${totaljourneyTime._data.minutes}m`}
+                {flightListing[0].totaDurationofJourney}
               </h4>
               <span>Total Duration</span>
             </div>
@@ -80,8 +57,7 @@ const MultipleFlights = ({ flightListing }) => {
                 />
                 {!(index % 2) && (
                   <div className={styles.separator}>
-                    Layover Time:{' '}
-                    {`${layoverTime._data.hours}h:${layoverTime._data.minutes}m`}
+                    Layover Time: {flightListing[0].layoverTime}
                   </div>
                 )}
               </div>
