@@ -4,7 +4,12 @@ import _ from 'lodash';
 import styles from './Multipleflights.module.css';
 import Flightlist from '../Flightlist/Flighlist';
 
-const MultipleFlights = ({ flightListing }) => {
+const MultipleFlights = ({
+  flightListing,
+  addToFavouriteList,
+  addRemoveItem,
+  id,
+}) => {
   const [expandFlag, setExpandFlag] = useState(false);
   const price = flightListing.reduce((sum, prev) => prev.price + sum, 0);
 
@@ -44,6 +49,36 @@ const MultipleFlights = ({ flightListing }) => {
                 }).format(price)}
               </h4>
             </div>
+            <div className="col-sm">
+              {addToFavouriteList && (
+                <button
+                  className="btn btn-success"
+                  onClick={() => addToFavouriteList(flightListing)}
+                >
+                  Favourite
+                </button>
+              )}
+            </div>
+            {addRemoveItem && (
+              <div className="col-sm">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => addRemoveItem(flightListing, true)}
+                >
+                  ADD
+                </button>
+              </div>
+            )}
+            {addRemoveItem && (
+              <div className="col-sm">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => addRemoveItem(flightListing, false, id)}
+                >
+                  REMOVE
+                </button>
+              </div>
+            )}
           </div>
         </div>
         {expandFlag &&
@@ -70,10 +105,14 @@ const MultipleFlights = ({ flightListing }) => {
 
 MultipleFlights.defaultpropTypes = {
   flightListing: [],
+  id: '',
 };
 
 MultipleFlights.propTypes = {
   flightListing: PropTypes.any,
+  addToFavouriteList: PropTypes.func,
+  addRemoveItem: PropTypes.func,
+  id: PropTypes.string,
 };
 
 export default MultipleFlights;

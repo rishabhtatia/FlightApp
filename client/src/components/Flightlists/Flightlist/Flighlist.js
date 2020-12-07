@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import styles from './Flightlist.module.css';
 import clsx from 'clsx';
 
-const Flightlist = ({ data, multiple }) => {
+const Flightlist = ({
+  data,
+  multiple,
+  addToFavouriteList,
+  addRemoveItem,
+  id,
+}) => {
   return (
-    <div
-      className={clsx(styles.flightList, styles.Blackborder && !data.multiple)}
-    >
+    <div className={clsx(styles.flightList, styles.Blackborder && !multiple)}>
       <div className="card">
         <div className="card-body">
           <div className="row">
@@ -37,6 +41,36 @@ const Flightlist = ({ data, multiple }) => {
                 </h4>
               )}
             </div>
+            <div className="col-sm">
+              {!multiple && addToFavouriteList && (
+                <button
+                  className="btn btn-success"
+                  onClick={() => addToFavouriteList(data)}
+                >
+                  Favourite
+                </button>
+              )}
+            </div>
+            {addRemoveItem && (
+              <div className="col-sm">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => addRemoveItem(data, true)}
+                >
+                  ADD
+                </button>
+              </div>
+            )}
+            {addRemoveItem && (
+              <div className="col-sm">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => addRemoveItem(data, false, id)}
+                >
+                  REMOVE
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -46,11 +80,15 @@ const Flightlist = ({ data, multiple }) => {
 
 Flightlist.defaultpropTypes = {
   data: {},
+  id: '',
 };
 
 Flightlist.propTypes = {
   data: PropTypes.any,
   multiple: PropTypes.bool,
+  addRemoveItem: PropTypes.func,
+  id: PropTypes.string,
+  addToFavouriteList: PropTypes.func,
 };
 
 export default Flightlist;

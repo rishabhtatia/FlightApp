@@ -23,13 +23,15 @@ const SideFilter = (props) => {
 
   const isDisabled = () => {
     return (
+      !(moment(formData.departureDate, 'YYYY-MM-DD')?.year() === 2020) ||
       !moment(formData.departureDate, 'YYYY-MM-DD').isValid() ||
       (props.showReturnData &&
-        !moment(formData.returnDate, 'YYYY-MM-DD').isValid()) ||
+        !moment(formData.returnDate, 'YYYY-MM-DD').isValid() &&
+        !(moment(formData.returnDate, 'YYYY-MM-DD')?.year() === 2020)) ||
       !formData?.originCity?.length > 0 ||
       !formData?.destinationCity?.length > 0 ||
       formData.originCity === formData.destinationCity ||
-      !formData.passengers
+      !(formData.passengers > 0)
     );
   };
 

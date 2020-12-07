@@ -6,6 +6,7 @@ import FlightLists from './components/Flightlists/Flightlists';
 import Layout from './components/Layout/Layout';
 import Sidefilter from './components/Sidefilter/Sidefilter';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const App = () => {
   const [filteredData, setFilteredData] = useState([]);
@@ -14,10 +15,12 @@ const App = () => {
   const [isError, setIserror] = useState(false);
   const [isErrorMessage, setIserrorMessage] = useState('');
   const [showReturnData, setshowReturnData] = useState(false);
+  const [formData, setformData] = useState(null);
   const [places, setPlaces] = useState([]);
   const [priceLimit, setpriceLimit] = useState(0);
   const onSearch = (event, formData) => {
     event.preventDefault();
+    setformData(formData);
     onSearchCall(formData);
   };
 
@@ -85,9 +88,7 @@ const App = () => {
                 showReturnData={showReturnData}
                 onChangeSlider={onChangeSlider}
               ></Sidefilter>
-              {/* <div className="form-group">
-                <RangeSlider onChange={onChangeSlider} />
-              </div> */}
+              <Link to="/favouritelist">FavouriteList</Link>
             </div>
             <div
               className={clsx(
@@ -98,6 +99,7 @@ const App = () => {
               <FlightLists
                 data={filteredData}
                 priceLimit={priceLimit}
+                formData={formData}
               ></FlightLists>
             </div>
             {showReturnData && (
@@ -105,6 +107,8 @@ const App = () => {
                 <FlightLists
                   data={returnData}
                   priceLimit={priceLimit}
+                  formData={formData}
+                  returnFlag={true}
                 ></FlightLists>
               </div>
             )}
