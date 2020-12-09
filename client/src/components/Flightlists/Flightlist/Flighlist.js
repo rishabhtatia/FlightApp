@@ -11,7 +11,9 @@ const Flightlist = ({
   id,
 }) => {
   return (
-    <div className={clsx(styles.flightList, styles.Blackborder && !multiple)}>
+    <div
+      className={clsx(styles.flightList, multiple ? null : styles.blackBorder)}
+    >
       <div className="card">
         <div className="card-body">
           <div className="row">

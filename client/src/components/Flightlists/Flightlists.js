@@ -20,14 +20,15 @@ const FlightLists = ({ data, priceLimit, formData, returnFlag }) => {
     const key = Math.random().toString().slice(2, 8);
     let favouriteList = JSON.parse(sessionStorage.getItem('data'));
     favouriteList = favouriteList ? favouriteList : [];
-    favouriteList.forEach((item) => {
-      JSON.stringify(item) === JSON.stringify(data)
-        ? null
-        : favouriteList.push({ id: key, value: data });
-    });
     if (favouriteList.length === 0) {
+      favouriteList.push({ id: key, value: data });     
+    }
+    else {
+    const addFlag = !(favouriteList.find( item => JSON.stringify(item.value)=== JSON.stringify(data)));
+    if(addFlag) {
       favouriteList.push({ id: key, value: data });
     }
+    }     
     sessionStorage.setItem('data', JSON.stringify(favouriteList));
   };
 
