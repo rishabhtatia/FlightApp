@@ -13,13 +13,12 @@ const FavouriteList = () => {
   }, []);
 
   const addRemoveItem = (item, addFlag, uniqueId) => {
-    console.log(uniqueId);
     if (addFlag) {
       const key = Math.random().toString().slice(2, 8);
       setData((prevState) => [...prevState, { id: key, value: item }]);
       sessionStorage.setItem('data', JSON.stringify(data));
     } else {
-      let removedData = data;
+      let removedData = [...data];
       removedData = removedData.filter((item) => item.id !== uniqueId);
       setData(removedData);
     }

@@ -59,13 +59,13 @@ const SideFilter = (props) => {
         <div className="form-group">
           <select
             name="originCity"
-            className={'mdb-select md-form' + styles.inputGroup}
+            className={styles.inputGroup}
             searchable="Search here.."
             value={formData.originCity}
             onChange={handleInput}
           >
             <option value="" disabled selected>
-              Enter Origin City
+              Enter Origin
             </option>
             {_.map(props.dropdownList, (item) => {
               return (
@@ -79,13 +79,13 @@ const SideFilter = (props) => {
         <div className="form-group">
           <select
             name="destinationCity"
-            className={'mdb-select md-form' + styles.inputGroup}
+            className={styles.inputGroup}
             searchable="Search here.."
             value={formData.destinationCity}
             onChange={handleInput}
           >
             <option value="" disabled selected>
-              Enter Destination City
+              Enter Destination
             </option>
             {_.map(props.dropdownList, (item) => {
               return (
