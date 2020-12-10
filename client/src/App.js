@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
-import API from './constant/api';
 import clsx from 'clsx';
 import FlightLists from './components/Flightlists/Flightlists';
 import Layout from './components/Layout/Layout';
