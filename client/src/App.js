@@ -30,7 +30,7 @@ const App = () => {
 
   const onSearchCall = async (formData) => {
     try {
-      const response = await axios.post(`${API.serverapi}/search`, {
+      const response = await axios.post("api/search", {
         returnDataFlag: showReturnData,
         formData,
       });
