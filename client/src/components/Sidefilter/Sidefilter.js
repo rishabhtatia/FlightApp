@@ -4,7 +4,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
-import RangeSlider from '../common/RangeSlider/RangeSlider';
+import SliderRange from '../common/SliderRange/SliderRange';
 
 const SideFilter = (props) => {
   const [formData, setFormData] = useState({
@@ -21,13 +21,11 @@ const SideFilter = (props) => {
     });
   };
 
-  const isDisabled = () => {
-    return (
-      !(moment(formData.departureDate, 'YYYY-MM-DD')?.year() === 2020) ||
+  const isDisabled = () => {        
+    return (      
       !moment(formData.departureDate, 'YYYY-MM-DD').isValid() ||
       (props.showReturnData &&
-        !moment(formData.returnDate, 'YYYY-MM-DD').isValid() &&
-        !(moment(formData.returnDate, 'YYYY-MM-DD')?.year() === 2020)) ||
+        !moment(formData.returnDate, 'YYYY-MM-DD').isValid() ) ||        
       !formData?.originCity?.length > 0 ||
       !formData?.destinationCity?.length > 0 ||
       formData.originCity === formData.destinationCity ||
@@ -135,11 +133,10 @@ const SideFilter = (props) => {
         </button>
       </form>
       <div>
-        <RangeSlider
-          onChangeSlider={props.onChangeSlider}
-          label="Refine Fligh Search"
-          min={0}
-          max={20000}
+        <SliderRange
+          setpriceRange={props.setpriceRange}
+          label="Refine Flight Search"          
+          priceRange={props.priceRange}
         />
       </div>
     </div>
@@ -153,9 +150,10 @@ SideFilter.defaultpropTypes = {
 
 SideFilter.propTypes = {
   dropdownList: PropTypes.array,
+  priceRange:PropTypes.object,
   onSearch: PropTypes.func,
   journeyType: PropTypes.func,
-  onChangeSlider: PropTypes.func,
+  setpriceRange: PropTypes.func,
   showReturnData: PropTypes.bool,
 };
 

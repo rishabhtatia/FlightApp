@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import styles from './Multipleflights.module.css';
-import Flightlist from '../Flightlist/Flighlist';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import _ from "lodash";
+import styles from "./Multipleflights.module.css";
+import Flightlist from "../Flightlist/Flighlist";
 
 const MultipleFlights = ({
   flightListing,
   addToFavouriteList,
   addRemoveItem,
-  id,
+  id
 }) => {
   const [expandFlag, setExpandFlag] = useState(false);
+  const [isDisabled, setDisabled] = useState(false);
   const price = flightListing.reduce((sum, prev) => prev.price + sum, 0);
 
   return (
@@ -24,7 +25,7 @@ const MultipleFlights = ({
                 className={styles.expandFlagButton}
                 onClick={() => setExpandFlag(!expandFlag)}
               >
-                {expandFlag ? 'HideDetails' : 'ShowDetails'}
+                {expandFlag ? "HideDetails" : "ShowDetails"}
               </button>
             </div>
             <div className="col-sm">
@@ -43,9 +44,9 @@ const MultipleFlights = ({
             </div>
             <div className="col-sm">
               <h4 className={styles.redColor}>
-                {new Intl.NumberFormat('en-IN', {
-                  style: 'currency',
-                  currency: 'INR',
+                {new Intl.NumberFormat("en-IN", {
+                  style: "currency",
+                  currency: "INR"
                 }).format(price)}
               </h4>
             </div>
@@ -53,7 +54,11 @@ const MultipleFlights = ({
               {addToFavouriteList && (
                 <button
                   className="btn btn-success"
-                  onClick={() => addToFavouriteList(flightListing)}
+                  onClick={() => {
+                    setDisabled(true);
+                    addToFavouriteList(flightListing);
+                  }}
+                  disabled={isDisabled}
                 >
                   Favourite
                 </button>
@@ -105,14 +110,14 @@ const MultipleFlights = ({
 
 MultipleFlights.defaultpropTypes = {
   flightListing: [],
-  id: '',
+  id: ""
 };
 
 MultipleFlights.propTypes = {
   flightListing: PropTypes.any,
   addToFavouriteList: PropTypes.func,
   addRemoveItem: PropTypes.func,
-  id: PropTypes.string,
+  id: PropTypes.string
 };
 
 export default MultipleFlights;

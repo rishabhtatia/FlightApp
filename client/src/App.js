@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
+import API from './constant/api';
 import clsx from 'clsx';
 import FlightLists from './components/Flightlists/Flightlists';
 import Layout from './components/Layout/Layout';
@@ -15,21 +16,17 @@ const App = () => {
   const [isErrorMessage, setIserrorMessage] = useState('');
   const [showReturnData, setshowReturnData] = useState(false);
   const [formData, setformData] = useState(null);
-  const [places, setPlaces] = useState([]);
-  const [priceLimit, setpriceLimit] = useState(0);
+  const [places, setPlaces] = useState([]);  
+  const [priceRange, setpriceRange] = useState({min:0, max:20000});
   const onSearch = (event, formData) => {
     event.preventDefault();
     setformData(formData);
     onSearchCall(formData);
-  };
-
-  const onChangeSlider = (price) => {
-    setpriceLimit(parseInt(price));
-  };
+  };  
 
   const onSearchCall = async (formData) => {
     try {
-      const response = await axios.post("api/search", {
+      const response = await axios.post(`${API.serverapi}/search`, {
         returnDataFlag: showReturnData,
         formData,
       });
@@ -85,7 +82,8 @@ const App = () => {
                 onSearch={onSearch}
                 journeyType={journeyType}
                 showReturnData={showReturnData}
-                onChangeSlider={onChangeSlider}
+                setpriceRange={setpriceRange}
+                priceRange={priceRange}
               ></Sidefilter>
               <Link to="/favouritelist">FavouriteList</Link>
             </div>
@@ -97,7 +95,7 @@ const App = () => {
             >
               <FlightLists
                 data={filteredData}
-                priceLimit={priceLimit}
+                priceRange={priceRange}
                 formData={formData}
               ></FlightLists>
             </div>
@@ -105,7 +103,7 @@ const App = () => {
               <div className={clsx('col-md-5 ', styles.noPadding)}>
                 <FlightLists
                   data={returnData}
-                  priceLimit={priceLimit}
+                  priceRange={priceRange}
                   formData={formData}
                   returnFlag={true}
                 ></FlightLists>

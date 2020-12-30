@@ -6,13 +6,13 @@ import MultipleFlights from './Multipleflights/Multipleflights';
 import styles from './Flightlists.module.css';
 import FlightHeader from './FlightHeader/FlightHeader';
 
-const FlightLists = ({ data, priceLimit, formData, returnFlag }) => {
+const FlightLists = ({ data, priceRange, formData, returnFlag }) => {
   const extractedData = data.filter((item) => {
     if (Array.isArray(item) && item) {
       const price = item.reduce((sum, prev) => prev.price + sum, 0);
-      return price <= priceLimit ? true : false;
+      return (price >= priceRange.min && price <= priceRange.max) ? true : false;
     } else {
-      return item.price <= priceLimit ? true : false;
+      return (item.price >= priceRange.min && item.price <= priceRange.max) ? true : false;
     }
   });
 
@@ -20,15 +20,14 @@ const FlightLists = ({ data, priceLimit, formData, returnFlag }) => {
     const key = Math.random().toString().slice(2, 8);
     let favouriteList = JSON.parse(sessionStorage.getItem('data'));
     favouriteList = favouriteList ? favouriteList : [];
-    if (favouriteList.length === 0) {
-      favouriteList.push({ id: key, value: data });     
-    }
-    else {
-    const addFlag = !(favouriteList.find( item => JSON.stringify(item.value)=== JSON.stringify(data)));
-    if(addFlag) {
-      favouriteList.push({ id: key, value: data });
-    }
-    }     
+    favouriteList.forEach((item) => {
+      JSON.stringify(item) === JSON.stringify(data)
+        ? null
+        : favouriteList.push({ id: key, value: data });
+    });
+    favouriteList.length === 0
+      ? favouriteList.push({ id: key, value: data })
+      : null;
     sessionStorage.setItem('data', JSON.stringify(favouriteList));
   };
 
@@ -55,7 +54,7 @@ const FlightLists = ({ data, priceLimit, formData, returnFlag }) => {
           <Flightlist
             data={item}
             key={item.flightNo}
-            addToFavouriteList={addToFavouriteList}
+            addToFavouriteList={addToFavouriteList}            
           />
         )
       )}
@@ -65,16 +64,16 @@ const FlightLists = ({ data, priceLimit, formData, returnFlag }) => {
 
 FlightLists.defaultpropTypes = {
   data: [],
-  priceLimit: 0,
+  priceLimit: {min:0, max:20000},
   formData: {},
-  return: false,
+  return: false
 };
 
 FlightLists.propTypes = {
   data: PropTypes.any,
   formData: PropTypes.any,
-  priceLimit: PropTypes.number,
-  returnFlag: PropTypes.bool,
+  priceRange: PropTypes.object,
+  returnFlag: PropTypes.bool
 };
 
 export default FlightLists;

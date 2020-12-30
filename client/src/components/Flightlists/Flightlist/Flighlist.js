@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './Flightlist.module.css';
-import clsx from 'clsx';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import styles from "./Flightlist.module.css";
+import clsx from "clsx";
 
 const Flightlist = ({
   data,
   multiple,
   addToFavouriteList,
   addRemoveItem,
-  id,
+  id
 }) => {
+  const [isDisabled, setDisabled] = useState(false);
   return (
     <div
       className={clsx(styles.flightList, multiple ? null : styles.blackBorder)}
@@ -36,9 +37,9 @@ const Flightlist = ({
             <div className="col-sm">
               {!multiple && (
                 <h4 className={styles.redColor}>
-                  {new Intl.NumberFormat('en-IN', {
-                    style: 'currency',
-                    currency: 'INR',
+                  {new Intl.NumberFormat("en-IN", {
+                    style: "currency",
+                    currency: "INR"
                   }).format(data.price)}
                 </h4>
               )}
@@ -47,7 +48,11 @@ const Flightlist = ({
               {!multiple && addToFavouriteList && (
                 <button
                   className="btn btn-success"
-                  onClick={() => addToFavouriteList(data)}
+                  onClick={() => {
+                    setDisabled(true);
+                    addToFavouriteList(data);
+                  }}
+                  disabled={isDisabled}
                 >
                   Favourite
                 </button>
@@ -82,7 +87,7 @@ const Flightlist = ({
 
 Flightlist.defaultpropTypes = {
   data: {},
-  id: '',
+  id: ""
 };
 
 Flightlist.propTypes = {
@@ -90,7 +95,7 @@ Flightlist.propTypes = {
   multiple: PropTypes.bool,
   addRemoveItem: PropTypes.func,
   id: PropTypes.string,
-  addToFavouriteList: PropTypes.func,
+  addToFavouriteList: PropTypes.func
 };
 
 export default Flightlist;
