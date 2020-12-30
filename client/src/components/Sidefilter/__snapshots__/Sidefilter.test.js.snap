@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering with nothing passed 1`] = `
+<div
+  className="sideFilter"
+>
+  <div
+    className="buttonGroup"
+  >
+    <button
+      className="btn button btn-primary"
+      onClick={[Function]}
+    >
+      One Way
+    </button>
+    <button
+      className="btn button"
+      onClick={[Function]}
+    >
+      Return
+    </button>
+  </div>
+  <form
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group"
+    >
+      <select
+        className="mdb-select md-forminputGroup"
+        name="originCity"
+        onChange={[Function]}
+        searchable="Search here.."
+        value=""
+      >
+        <option
+          disabled={true}
+          selected={true}
+          value=""
+        >
+          Enter Origin City
+        </option>
+      </select>
+    </div>
+    <div
+      className="form-group"
+    >
+      <select
+        className="mdb-select md-forminputGroup"
+        name="destinationCity"
+        onChange={[Function]}
+        searchable="Search here.."
+        value=""
+      >
+        <option
+          disabled={true}
+          selected={true}
+          value=""
+        >
+          Enter Destination City
+        </option>
+      </select>
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="inputGroup"
+        name="departureDate"
+        onChange={[Function]}
+        type="date"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="inputGroup"
+        name="returnDate"
+        onChange={[Function]}
+        type="date"
+        value=""
+      />
+    </div>
+    <button
+      className="btn btn-primary"
+      disabled={true}
+      type="submit"
+    >
+      Search
+    </button>
+  </form>
+</div>
+`;
