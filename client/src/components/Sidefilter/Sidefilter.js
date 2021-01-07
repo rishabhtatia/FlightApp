@@ -132,8 +132,6 @@ const SideFilter = props => {
               handleDateInput(date, "departureDate");
             }}
             dateFormat="dd/MM/yyyy"
-            minDate={"02-01-2020"}
-            maxDate={"02-29-2020"}
             isClearable
           />
         </div>
