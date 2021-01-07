@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import styles from './App.module.css';
-import API from './constant/api';
-import clsx from 'clsx';
-import FlightLists from './components/Flightlists/Flightlists';
-import Layout from './components/Layout/Layout';
-import Sidefilter from './components/Sidefilter/Sidefilter';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import styles from "./App.module.css";
+import API from "./constant/api";
+import clsx from "clsx";
+import FlightLists from "./components/Flightlists/Flightlists";
+import Layout from "./components/Layout/Layout";
+import Sidefilter from "./components/Sidefilter/Sidefilter";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const App = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [returnData, setReturnData] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [isError, setIserror] = useState(false);
-  const [isErrorMessage, setIserrorMessage] = useState('');
+  const [isErrorMessage, setIserrorMessage] = useState("");
   const [showReturnData, setshowReturnData] = useState(false);
   const [formData, setformData] = useState(null);
-  const [places, setPlaces] = useState([]);  
-  const [priceRange, setpriceRange] = useState({min:0, max:20000});
+  const [places, setPlaces] = useState([]);
+  const [priceRange, setpriceRange] = useState({ min: 0, max: 20000 });
   const onSearch = (event, formData) => {
     event.preventDefault();
     setformData(formData);
     onSearchCall(formData);
-  };  
+  };
 
-  const onSearchCall = async (formData) => {
+  const onSearchCall = async formData => {
     try {
       const response = await axios.post(`${API.serverapi}/search`, {
         returnDataFlag: showReturnData,
-        formData,
+        formData
       });
       if (response?.data?.flightOneWayData) {
         setFilteredData(response?.data?.flightOneWayData);
@@ -42,7 +42,7 @@ const App = () => {
     }
   };
 
-  const journeyType = (flag) => {
+  const journeyType = flag => {
     if (flag) {
       setshowReturnData(true);
       setReturnData([]);
@@ -76,7 +76,7 @@ const App = () => {
           </div>
         ) : (
           <div className="row" style={{ margin: 0 }}>
-            <div className={clsx('col-md-2', styles.noPadding)}>
+            <div className={clsx("col-md-2", styles.noPadding)}>
               <Sidefilter
                 dropdownList={places}
                 onSearch={onSearch}
@@ -89,7 +89,7 @@ const App = () => {
             </div>
             <div
               className={clsx(
-                showReturnData ? 'col-md-5' : 'col-md-10',
+                showReturnData ? "col-md-5" : "col-md-10",
                 styles.noPadding
               )}
             >
@@ -100,7 +100,7 @@ const App = () => {
               ></FlightLists>
             </div>
             {showReturnData && (
-              <div className={clsx('col-md-5 ', styles.noPadding)}>
+              <div className={clsx("col-md-5 ", styles.noPadding)}>
                 <FlightLists
                   data={returnData}
                   priceRange={priceRange}

@@ -47,7 +47,7 @@ const Flightlist = ({
             <div className="col-sm">
               {!multiple && addToFavouriteList && (
                 <button
-                  className="btn btn-success"
+                  className={clsx("btn btn-success", styles.cursorPointer)}
                   onClick={() => {
                     setDisabled(true);
                     addToFavouriteList(data);
@@ -61,7 +61,7 @@ const Flightlist = ({
             {addRemoveItem && (
               <div className="col-sm">
                 <button
-                  className="btn btn-primary"
+                  className={clsx("btn btn-primary", styles.cursorPointer)}
                   onClick={() => addRemoveItem(data, true)}
                 >
                   ADD
@@ -71,7 +71,7 @@ const Flightlist = ({
             {addRemoveItem && (
               <div className="col-sm">
                 <button
-                  className="btn btn-danger"
+                  className={clsx("btn btn-danger", styles.cursorPointer)}
                   onClick={() => addRemoveItem(data, false, id)}
                 >
                   REMOVE

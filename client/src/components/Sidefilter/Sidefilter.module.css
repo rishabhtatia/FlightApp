@@ -5,6 +5,7 @@
 .button {
   margin: 5px;
   padding: 5px 10px;
+  cursor: pointer;
 }
 .sideFilter {
   border: 1px solid black;

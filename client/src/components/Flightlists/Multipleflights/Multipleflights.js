@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import clsx from "clsx";
 import styles from "./Multipleflights.module.css";
 import Flightlist from "../Flightlist/Flighlist";
 
@@ -22,7 +23,7 @@ const MultipleFlights = ({
             <div className="col-sm">
               <h4>Multiple</h4>
               <button
-                className={styles.expandFlagButton}
+                className={clsx(styles.expandFlagButton, styles.cursorPointer)}
                 onClick={() => setExpandFlag(!expandFlag)}
               >
                 {expandFlag ? "HideDetails" : "ShowDetails"}
@@ -53,7 +54,7 @@ const MultipleFlights = ({
             <div className="col-sm">
               {addToFavouriteList && (
                 <button
-                  className="btn btn-success"
+                  className={clsx("btn btn-success", styles.cursorPointer)}
                   onClick={() => {
                     setDisabled(true);
                     addToFavouriteList(flightListing);
@@ -67,7 +68,7 @@ const MultipleFlights = ({
             {addRemoveItem && (
               <div className="col-sm">
                 <button
-                  className="btn btn-primary"
+                  className={clsx("btn btn-primary", styles.cursorPointer)}
                   onClick={() => addRemoveItem(flightListing, true)}
                 >
                   ADD
@@ -77,7 +78,7 @@ const MultipleFlights = ({
             {addRemoveItem && (
               <div className="col-sm">
                 <button
-                  className="btn btn-danger"
+                  className={clsx("btn btn-danger", styles.cursorPointer)}
                   onClick={() => addRemoveItem(flightListing, false, id)}
                 >
                   REMOVE

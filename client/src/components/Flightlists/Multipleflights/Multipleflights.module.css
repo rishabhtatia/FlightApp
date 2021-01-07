@@ -21,7 +21,7 @@
 }
 .separator::before,
 .separator::after {
-  content: '';
+  content: "";
   flex: 1;
   border-top: 3px dashed #bbb;
 }
@@ -30,4 +30,7 @@
 }
 .separator::after {
   margin-left: 5px;
+}
+.cursorPointer {
+  cursor: pointer;
 }

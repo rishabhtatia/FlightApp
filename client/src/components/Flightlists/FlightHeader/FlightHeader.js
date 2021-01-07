@@ -1,6 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './FlightHeader.module.css';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "./FlightHeader.module.css";
+import moment from "moment";
 
 const FlightHeader = ({ numberOfFlights, formData, returnFlag }) => {
   const { originCity, destinationCity, departureDate, returnDate } = formData;
@@ -10,8 +11,10 @@ const FlightHeader = ({ numberOfFlights, formData, returnFlag }) => {
         {originCity} to {destinationCity}
       </h4>
       <h6>
-        {numberOfFlights} flights found{' '}
-        {returnFlag ? returnDate : departureDate}
+        {numberOfFlights} flights found{" "}
+        {returnFlag
+          ? moment(returnDate).format("DD/MM/YYYY")
+          : moment(departureDate).format("DD/MM/YYYY")}
       </h6>
     </div>
   );
@@ -20,13 +23,13 @@ const FlightHeader = ({ numberOfFlights, formData, returnFlag }) => {
 FlightHeader.defaultpropTypes = {
   numberOfFlights: 0,
   returnFlag: false,
-  formData: {},
+  formData: {}
 };
 
 FlightHeader.propTypes = {
   numberOfFlights: PropTypes.number,
   returnFlag: PropTypes.bool,
-  formData: PropTypes.any,
+  formData: PropTypes.any
 };
 
 export default FlightHeader;
