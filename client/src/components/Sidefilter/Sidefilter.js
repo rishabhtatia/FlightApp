@@ -173,7 +173,7 @@ const SideFilter = props => {
         <button
           type="submit"
           className={clsx("btn btn-primary", styles.button)}
-          disabled={isDisabled}
+          disabled={isDisabled()}
         >
           Search
         </button>
